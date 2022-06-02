@@ -13,7 +13,7 @@ import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
 import RequestForm from './components/RequestForm.vue';
 import {loadData, saveData} from './storage-data/storage-data';
-import {getRegions} from './get-requests/get-requests';
+import {getDataFromServer} from './get-requests/get-requests';
 
 @Options({
   components: {
@@ -26,7 +26,7 @@ export default class App extends Vue {
   public title = 'Заявка';
   mounted(): void  {
     loadData();
-    getRegions();
+    getDataFromServer();
  }
 }
 </script>
