@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
 
-export interface State {
-  todos: string[]
+interface Region {
+  id : number,
+  name: string;
 }
 
 export default createStore({
   state: {
-    todos: ['String1', 'String2', 'String3']
+    todos: ['String1', 'String2', 'String3'],
+    regions: []
   },
   mutations: {
     ADD_TODO (state, todo: string) {
