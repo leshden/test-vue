@@ -10,6 +10,7 @@
 import { Options, Vue } from 'vue-class-component';
 import TodoInput from './components/TodoInput.vue';
 import TodoList from './components/TodoList.vue';
+import {loadData, saveData} from './storage-data/storage-data';
 
 @Options({
   components: {
@@ -19,6 +20,9 @@ import TodoList from './components/TodoList.vue';
 })
 export default class App extends Vue {
   public title = 'Vue and TS';
+  mounted(): void  {
+    loadData();
+ }
 }
 </script>
 
