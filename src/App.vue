@@ -1,16 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class='app'>
+    <h1>{{title}}</h1>
+    <TodoInput />
+    <TodoList />
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import TodoInput from './components/TodoInput.vue';
+import TodoList from './components/TodoList.vue';
 
-export default {
-  name: 'App',
+@Options({
   components: {
-    HelloWorld
-  }
+    TodoInput,
+    TodoList
+  },
+})
+export default class App extends Vue {
+  public title = 'Vue and TS';
 }
 </script>
 
