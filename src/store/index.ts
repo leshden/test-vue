@@ -9,7 +9,8 @@ export default createStore({
   state: {
     todos: ['String1', 'String2', 'String3'],
     regions: [],
-    groups: {}
+    groups: {},
+    types: {}
   },
   mutations: {
     ADD_TODO (state, todo: string) {
@@ -24,6 +25,9 @@ export default createStore({
     UPDATE_GROUPS (state, groups: any) {
       state.groups = groups;
     },
+    UPDATE_TYPES (state, types: object) {
+      state.types = types;
+    }
   },
   actions: {
     addTodo({commit}, todo: string) {
@@ -37,6 +41,9 @@ export default createStore({
     },
     updateGroups({commit}, groups: any) {
       commit('UPDATE_GROUPS', groups);
+    },
+    updateTypes({commit}, types: object) {
+      commit('UPDATE_TYPES', types);
     }
   }
 })
