@@ -26,13 +26,7 @@
 
     <input type='submit' value='Отправить заявку'>
 
-    <v-pagination
-      v-model="page"
-      :pages="10"
-      :range-size="1"
-      active-color="#DCEDFF"
-      @update:modelValue="updatePage"
-    />
+    <DeclarationRibbon />
 
   </form>
 </template>
@@ -44,23 +38,21 @@ import {getTypes} from '../get-requests/get-requests';
 //map
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-//pagination
-import VPagination from "@hennge/vue3-pagination";
-import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
+import DeclarationRibbon from './DeclarationRibbon.vue';
 
 @Options({
   components: {
-    VPagination
+    DeclarationRibbon
   }
 })
 
-export default class RequestForm extends Vue {
+export default class DeclarationForm extends Vue {
   public selectedRegion = {id : -1}
   public selectedGroup = {id: -1}
   public selectedType = []
   public map: any
   public marker: any
-  public page = 0
 
   public onSelectGroup(e: any): void {
     if(e.target.options.selectedIndex > -1) {
@@ -96,10 +88,6 @@ export default class RequestForm extends Vue {
 
   public isRegionsAndGroupsCompleted() : boolean {
     return isIdPositive(this.selectedRegion.id) && isIdPositive(this.selectedGroup.id);
-  }
-
-  public updatePage() {
-    console.log(`Current page: ${this.page}`);
   }
 
   mounted(): void  {
