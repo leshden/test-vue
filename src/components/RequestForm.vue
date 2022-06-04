@@ -21,17 +21,38 @@
 
     <div id="mapContainer"></div>
 
+    <textarea class='text-form'>
+    </textarea>
+
     <input type='submit' value='Отправить заявку'>
+
+    <v-pagination
+      v-model="page"
+      :pages="10"
+      :range-size="1"
+      active-color="#DCEDFF"
+      @update:modelValue="updatePage"
+    />
 
   </form>
 </template>
 
 <script lang='ts'>
-import {Vue} from 'vue-class-component';
+import {Options, Vue} from 'vue-class-component';
 import {isIdPositive} from '../utils/utils';
 import {getTypes} from '../get-requests/get-requests';
+//map
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+//pagination
+import VPagination from "@hennge/vue3-pagination";
+import "@hennge/vue3-pagination/dist/vue3-pagination.css";
+
+@Options({
+  components: {
+    VPagination
+  }
+})
 
 export default class RequestForm extends Vue {
   public selectedRegion = {id : -1}
@@ -39,6 +60,7 @@ export default class RequestForm extends Vue {
   public selectedType = []
   public map: any
   public marker: any
+  public page = 0
 
   public onSelectGroup(e: any): void {
     if(e.target.options.selectedIndex > -1) {
@@ -74,6 +96,10 @@ export default class RequestForm extends Vue {
 
   public isRegionsAndGroupsCompleted() : boolean {
     return isIdPositive(this.selectedRegion.id) && isIdPositive(this.selectedGroup.id);
+  }
+
+  public updatePage() {
+    console.log(`Current page: ${this.page}`);
   }
 
   mounted(): void  {
@@ -124,5 +150,10 @@ export default class RequestForm extends Vue {
   #mapContainer {
     width: 300px;
     height:300px;
+    margin: 20px;
+  }
+
+  .text-form {
+    resize: none;
   }
 </style>
