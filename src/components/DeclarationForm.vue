@@ -19,10 +19,9 @@
       <option v-for="type in $store.state.types.content" :value='JSON.stringify({id: type.id,  name: type.name})' :key='type.id'>{{type.name}}</option>
     </select>
 
-    <div id="mapContainer"></div>
+    <DeclarationMap />
 
-    <textarea class='text-form'>
-    </textarea>
+    <textarea class='text-form'> </textarea>
 
     <input type='submit' value='Отправить заявку'>
 
@@ -35,17 +34,16 @@
 import {Options, Vue} from 'vue-class-component';
 import {isIdPositive} from '../utils/utils';
 import {getTypes} from '../get-requests/get-requests';
-//map
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
 
 import store, {Selector} from '../store';
 
 import DeclarationRibbon from './DeclarationRibbon.vue';
+import DeclarationMap from './DeclarationMap.vue';
 
 @Options({
   components: {
-    DeclarationRibbon
+    DeclarationRibbon,
+    DeclarationMap
   }
 })
 
@@ -53,8 +51,6 @@ export default class DeclarationForm extends Vue {
   public selectedRegion: Selector = {id: -1, name: ''}
   public selectedGroup: Selector = {id: -1, name: ''}
   public selectedType: Selector = {id: -1, name: ''}
-  public map: any
-  public marker: any
 
   public onSelectGroup(e: any): void {
     if(e.target.options.selectedIndex > -1) {
@@ -98,32 +94,6 @@ export default class DeclarationForm extends Vue {
     return isIdPositive(this.selectedRegion.id) && isIdPositive(this.selectedGroup.id);
   }
 
-  mounted(): void  {
-
-     this.map = L.map("mapContainer").setView([68.58, 33.05], 5);
-
-    L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-      attribution:
-        '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this.map);
-
-    let myIcon = L.icon({
-    iconUrl: require('../assets/map-mark.png'),
-    iconSize: [35, 42],
-    iconAnchor: [17.5, 42],
-    popupAnchor: [-3, -76]
-    });
-
-    this.map.on('click', this.onClickMap);
-
-    this.marker = L.marker([68.58, 33.05], {icon: myIcon}).addTo(this.map);
-    this.marker.on('click', function() { alert('Clicked on Marker!'); });
-  }
-
-  public onClickMap(event: any) {
-    console.log("Lat, Lon : " + event.latlng.lat + ", " + event.latlng.lng);
-    this.marker.setLatLng(event.latlng);
-  }
 }
 </script>
 
@@ -140,12 +110,6 @@ export default class DeclarationForm extends Vue {
   }
 
   .groups-form {
-    margin: 20px;
-  }
-
-  #mapContainer {
-    width: 300px;
-    height:300px;
     margin: 20px;
   }
 
