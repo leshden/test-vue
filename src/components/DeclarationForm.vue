@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent='' class='request-form'>
+  <form @submit.prevent='onSubmit' class='request-form'>
 
     <label>Регион:</label>
     <select class='regions-form' @change='onSelectRegion'>
@@ -39,6 +39,8 @@ import {getTypes} from '../get-requests/get-requests';
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
+import store, {Selector} from '../store';
+
 import DeclarationRibbon from './DeclarationRibbon.vue';
 
 @Options({
@@ -48,9 +50,9 @@ import DeclarationRibbon from './DeclarationRibbon.vue';
 })
 
 export default class DeclarationForm extends Vue {
-  public selectedRegion = {id : -1}
-  public selectedGroup = {id: -1}
-  public selectedType = []
+  public selectedRegion: Selector = {id: -1, name: ''}
+  public selectedGroup: Selector = {id: -1, name: ''}
+  public selectedType: Selector = {id: -1, name: ''}
   public map: any
   public marker: any
 
@@ -58,6 +60,7 @@ export default class DeclarationForm extends Vue {
     if(e.target.options.selectedIndex > -1) {
       this.selectedGroup = JSON.parse(e.target.options[e.target.options.selectedIndex].value);
       this.checkRequestType();
+      store.dispatch('updateGroup', this.selectedGroup.name);
     }
   }
 
@@ -65,14 +68,19 @@ export default class DeclarationForm extends Vue {
     if(e.target.options.selectedIndex > -1) {
       this.selectedRegion = JSON.parse(e.target.options[e.target.options.selectedIndex].value);
       this.checkRequestType();
+      store.dispatch('updateRegion', this.selectedRegion.name);
     }
   }
 
   public onSelectType(e: any): void {
     if(e.target.options.selectedIndex > -1) {
       this.selectedType = JSON.parse(e.target.options[e.target.options.selectedIndex].value);
-      console.log('SELECT TYPE');
+      store.dispatch('updateType', this.selectedType.name);
     }
+  }
+
+  public onSubmit(): void {
+    console.log(store.state.declInfo);
   }
 
   public checkRequestType(): void {

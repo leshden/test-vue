@@ -8,12 +8,12 @@ const TYPES = '/inbox-service/subsubjects'
 
 export function getRegions() {
   const path = PATH_PORT + REGIONS;
-  getRequest(path, 'updateRegions');
+  getRequest(path, 'uploadRegions');
 }
 
 export function getGroups() {
   const path = PATH_PORT + GROUPS;
-  getRequest(path, 'updateGroups');
+  getRequest(path, 'uploadGroups');
 }
 
 export function getDataFromServer() {
@@ -24,7 +24,7 @@ export function getDataFromServer() {
 export function getTypes(region: number, group: number) {
   const SUB_TYPES = `/subject/${group}/region/${region}`;
   const path = PATH_PORT + TYPES + SUB_TYPES;
-  getRequest(path, 'updateTypes');
+  getRequest(path, 'uploadTypes');
 }
 
 function getRequest(path: string, action: string) {
