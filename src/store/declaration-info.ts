@@ -15,6 +15,15 @@ export default class DeclarationInfo {
   protected status = ''
   protected position: MapPosition = {latitude: 0.0, longitude: 0.0}
   protected description = ''
+  //get
+  getId() {
+    return this.id;
+  }
+
+  //set
+  setId(value: number): void {
+    this.id = value;
+  }
 
   setRegion(value: string): void {
     this.region = value;

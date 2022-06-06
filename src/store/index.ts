@@ -10,6 +10,8 @@ export default createStore({
   state: {
     //update
     declInfo: new DeclarationInfo(),
+    //add
+    declInfoArray: new Array<DeclarationInfo>(),
 
     //upload
     regions: [],
@@ -46,6 +48,11 @@ export default createStore({
     },
     UPDATE_DESCRIPTION (state, desc: string) {
       state.declInfo.setDescription(desc);
+    },
+
+    //add
+    ADD_DECLARATION(state, decl: DeclarationInfo) {
+      state.declInfoArray.push(decl);
     }
   },
   actions: {
@@ -78,6 +85,12 @@ export default createStore({
     },
     updateDescription({commit}, desc: string) {
       commit('UPDATE_DESCRIPTION', desc);
+    },
+
+    //add
+    addDeclaration({commit}, decl: DeclarationInfo) {
+      commit('ADD_DECLARATION', decl);
     }
+
   }
 })

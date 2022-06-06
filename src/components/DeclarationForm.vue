@@ -30,9 +30,13 @@ export default class DeclarationForm extends Vue {
   public onSubmit(): void {
     store.dispatch('updateStatus', 'Зарегистрирована');
     store.dispatch('updateDescription', this.textDescription);
-    console.log(store.state.declInfo);
-  }
 
+    let declaration = Object.create(store.state.declInfo);
+    declaration.setId(store.state.declInfoArray.length + 1);
+    store.dispatch('addDeclaration', declaration);
+
+    console.log(declaration);
+  }
 }
 </script>
 
