@@ -17,11 +17,11 @@
 <script lang='ts'>
 import {Vue} from 'vue-class-component';
 import store from '../store';
-import {TYPE_FORM_DECLARATION} from '../store/type-forms';
+import {TYPE_FORM_ENTER} from '../store/const';
 
 export default class DeclarationPreview extends Vue{
   public backToForm(): void {
-    store.dispatch('changeForm', TYPE_FORM_DECLARATION);
+    store.dispatch('changeForm', TYPE_FORM_ENTER);
   }
 }
 </script>

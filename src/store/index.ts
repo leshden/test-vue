@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 import DeclarationInfo, {MapPosition} from './declaration-info'
-import {TYPE_FORM_DECLARATION} from './type-forms';
+import {TYPE_FORM_ENTER} from './const';
 
 export interface Selector {
   id : number
@@ -18,7 +18,7 @@ export default createStore({
     groups: {},
     types: {},
     //enum
-    typeForm: TYPE_FORM_DECLARATION,
+    typeForm: TYPE_FORM_ENTER
   },
 
   mutations: {
