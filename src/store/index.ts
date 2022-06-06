@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import DeclarationInfo from './declaration-info'
+import DeclarationInfo, {MapPosition} from './declaration-info'
 
 export interface Selector {
   id : number
@@ -37,6 +37,15 @@ export default createStore({
     },
     UPDATE_TYPE (state, type: string) {
       state.declInfo.setType(type);
+    },
+    UPDATE_MAP_POSITION (state, pos: MapPosition) {
+      state.declInfo.setMapPosition(pos);
+    },
+    UPDATE_STATUS (state, status: string) {
+      state.declInfo.setStatus(status);
+    },
+    UPDATE_DESCRIPTION (state, desc: string) {
+      state.declInfo.setDescription(desc);
     }
   },
   actions: {
@@ -60,6 +69,15 @@ export default createStore({
     },
     updateType({commit}, type: string) {
       commit('UPDATE_TYPE', type);
+    },
+    updateMapPosition({commit}, pos: MapPosition) {
+      commit('UPDATE_MAP_POSITION', pos);
+    },
+    updateStatus({commit}, status: string) {
+      commit('UPDATE_STATUS', status);
+    },
+    updateDescription({commit}, desc: string) {
+      commit('UPDATE_DESCRIPTION', desc);
     }
   }
 })

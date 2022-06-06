@@ -1,6 +1,10 @@
-interface MapPoint {
+export interface MapPosition {
   latitude: number
   longitude: number
+}
+
+export function mapPositionToArray(map: MapPosition): [number, number] {
+  return [map.latitude, map.longitude];
 }
 
 export default class DeclarationInfo {
@@ -9,7 +13,8 @@ export default class DeclarationInfo {
   protected group = ''
   protected type = ''
   protected status = ''
-  protected point: MapPoint = {latitude: 0.0, longitude: 0.0}
+  protected position: MapPosition = {latitude: 0.0, longitude: 0.0}
+  protected description = ''
 
   setRegion(value: string): void {
     this.region = value;
@@ -21,6 +26,18 @@ export default class DeclarationInfo {
 
   setType(value: string): void {
     this.type = value;
+  }
+
+  setMapPosition(value: MapPosition) {
+    this.position = value;
+  }
+
+  setStatus(value: string) {
+    this.status = value;
+  }
+
+  setDescription(value: string) {
+    this.description = value;
   }
 
   toString(): string {

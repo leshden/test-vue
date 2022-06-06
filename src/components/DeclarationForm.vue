@@ -21,7 +21,7 @@
 
     <DeclarationMap />
 
-    <textarea class='text-form'> </textarea>
+    <textarea class='text-form' v-model='textDescription'> </textarea>
 
     <input type='submit' value='Отправить заявку'>
 
@@ -51,6 +51,7 @@ export default class DeclarationForm extends Vue {
   public selectedRegion: Selector = {id: -1, name: ''}
   public selectedGroup: Selector = {id: -1, name: ''}
   public selectedType: Selector = {id: -1, name: ''}
+  public textDescription = ''
 
   public onSelectGroup(e: any): void {
     if(e.target.options.selectedIndex > -1) {
@@ -76,6 +77,8 @@ export default class DeclarationForm extends Vue {
   }
 
   public onSubmit(): void {
+    store.dispatch('updateStatus', 'Зарегистрирована');
+    store.dispatch('updateDescription', this.textDescription);
     console.log(store.state.declInfo);
   }
 
