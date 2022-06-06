@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import DeclarationInfo, {MapPosition} from './declaration-info'
+import {TYPE_FORM_DECLARATION} from './type-forms';
 
 export interface Selector {
   id : number
@@ -12,12 +13,14 @@ export default createStore({
     declInfo: new DeclarationInfo(),
     //add
     declInfoArray: new Array<DeclarationInfo>(),
-
     //upload
     regions: [],
     groups: {},
-    types: {}
+    types: {},
+    //enum
+    typeForm: TYPE_FORM_DECLARATION,
   },
+
   mutations: {
     //upload
     UPLOAD_REGIONS (state, regions: any) {
@@ -53,6 +56,10 @@ export default createStore({
     //add
     ADD_DECLARATION(state, decl: DeclarationInfo) {
       state.declInfoArray.push(decl);
+    },
+    //enum
+    CHANGE_FORM(state, type: number) {
+      state.typeForm = type;
     }
   },
   actions: {
@@ -90,6 +97,11 @@ export default createStore({
     //add
     addDeclaration({commit}, decl: DeclarationInfo) {
       commit('ADD_DECLARATION', decl);
+    },
+
+    //enum
+    changeForm({commit}, type: number) {
+      commit('CHANGE_FORM', type);
     }
 
   }

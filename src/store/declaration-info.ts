@@ -1,3 +1,4 @@
+
 export interface MapPosition {
   latitude: number
   longitude: number
@@ -18,6 +19,26 @@ export default class DeclarationInfo {
   //get
   getId() {
     return this.id;
+  }
+
+  getRegion() {
+    return this.region;
+  }
+
+  getGroup() {
+    return this.group;
+  }
+
+  getType() {
+    return this.type;
+  }
+
+  getMapPosition(): MapPosition {
+    return this.position;
+  }
+
+  getDescription() {
+    return this.description;
   }
 
   //set
