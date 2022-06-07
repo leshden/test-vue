@@ -1,20 +1,20 @@
 <template>
   <label>Регион:</label>
   <select class='regions-form' @change='onSelectRegion'>
-    <option disabled value="" selected>Выбрать регион...</option>
-    <option v-for="region in $store.state.regions" :value='JSON.stringify({id: region.id,  name: region.name})' :key='region.id'>{{region.name}}</option>
+    <option v-if='$store.state.declInfo.getRegion() === ""' disabled value="" selected>Выбрать регион...</option>
+    <option v-for="region in $store.state.regions" :value='JSON.stringify({id: region.id,  name: region.name})' :key='region.id' :selected="region.name === $store.state.declInfo.getRegion()">{{region.name}}</option>
   </select>
 
   <label>Группа:</label>
   <select class='groups-form' @change='onSelectGroup'>
-    <option disabled value="" selected>Выбрать группу...</option>
-    <option v-for="group in $store.state.groups.content" :value='JSON.stringify({id: group.id,  name: group.name})' :key='group.id'>{{group.name}}</option>
+    <option v-if='$store.state.declInfo.getGroup() === ""' disabled value="" selected>Выбрать группу...</option>
+    <option v-for="group in $store.state.groups" :value='JSON.stringify({id: group.id,  name: group.name})' :key='group.id' :selected="group.name === $store.state.declInfo.getGroup()">{{group.name}}</option>
   </select>
 
   <label>Типы:</label>
   <select class='types-form' @change='onSelectType' v-if="isRegionsAndGroupsCompleted()">
-    <option disabled value="" selected>Выбрать тип...</option>
-    <option v-for="type in $store.state.types.content" :value='JSON.stringify({id: type.id,  name: type.name})' :key='type.id'>{{type.name}}</option>
+    <option v-if='$store.state.declInfo.getType() === ""' disabled value="" selected>Выбрать тип...</option>
+    <option v-for="type in $store.state.types" :value='JSON.stringify({id: type.id,  name: type.name})' :key='type.id' :selected="type.name === $store.state.declInfo.getType()">{{type.name}}</option>
   </select>
 </template>
 
@@ -30,6 +30,33 @@ export default class DeclarationSelectors extends Vue {
   public selectedRegion: Selector = {id: -1, name: ''}
   public selectedGroup: Selector = {id: -1, name: ''}
   public selectedType: Selector = {id: -1, name: ''}
+
+  mounted(): void  {
+    if (store.state.declInfo.getRegion() !== "" && store.state.declInfo.getGroup() !== "" && store.state.declInfo.getType() !== "") {
+      // region
+      for(let region of store.state.regions) {
+        if (region['name'] === store.state.declInfo.getRegion()) {
+          this.selectedRegion = {id: region['id'], name: region['name']}
+          break;
+        }
+      }
+      //group
+      for(let group of store.state.groups) {
+        if (group['name'] === store.state.declInfo.getGroup()) {
+          this.selectedGroup = {id: group['id'], name: group['name']}
+          break;
+        }
+      }
+      //type
+      for(let type of store.state.types) {
+        if (type['name'] === store.state.declInfo.getType()) {
+          this.selectedType = {id: type['id'], name: type['name']}
+          break;
+        }
+      }
+
+    }
+  }
 
   public onSelectGroup(e: any): void {
     if(e.target.options.selectedIndex > -1) {

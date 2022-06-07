@@ -11,7 +11,7 @@
   <p>{{$store.state.declInfo.getDescription()}}</p>
 
   <button class='back-button-preview' @click='backToForm'>Назад</button>
-  <button>Отправить заявку</button>
+  <button @click='declarateForm'>Отправить заявку</button>
 </template>
 
 <script lang='ts'>
@@ -22,6 +22,18 @@ import {TYPE_FORM_ENTER} from '../store/const';
 export default class DeclarationPreview extends Vue{
   public backToForm(): void {
     store.dispatch('changeForm', TYPE_FORM_ENTER);
+  }
+
+  public declarateForm(): void {
+    store.dispatch('updateStatus', 'Зарегистрирована');
+
+    let declaration = Object.create(store.state.declInfo);
+    declaration.setId(store.state.declInfoArray.length + 1);
+    store.dispatch('addDeclaration', declaration);
+    console.log(declaration);
+
+    store.dispatch('clearDeclaration');
+    this.backToForm();
   }
 }
 </script>

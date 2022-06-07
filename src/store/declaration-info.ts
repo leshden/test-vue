@@ -74,4 +74,13 @@ export default class DeclarationInfo {
     return JSON.stringify(this);
   }
 
+  clear() {
+    this.id = 0;
+    this.region = '';
+    this.group = '';
+    this.type = '';
+    this.description = '';
+    this.status = '';
+  }
+
 }

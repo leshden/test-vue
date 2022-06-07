@@ -3,7 +3,7 @@
     <DeclarationSelectors />
     <DeclarationMap />
     <textarea class='text-form' v-model='textDescription'> </textarea>
-    <input type='submit' value='Отправить заявку'>
+    <input type='submit' value='Предварительный просмотр'>
     <DeclarationRibbon />
   </form>
 </template>
@@ -11,6 +11,7 @@
 <script lang='ts'>
 import {Options, Vue} from 'vue-class-component';
 import store from '../store';
+import {TYPE_FORM_PREVIEW} from '../store/const';
 
 import DeclarationRibbon from './DeclarationRibbon.vue';
 import DeclarationMap from './DeclarationMap.vue';
@@ -28,16 +29,35 @@ export default class DeclarationEnter extends Vue {
   public textDescription = ''
 
   public onSubmit(): void {
-    store.dispatch('updateStatus', 'Зарегистрирована');
     store.dispatch('updateDescription', this.textDescription);
 
-    let declaration = Object.create(store.state.declInfo);
-    declaration.setId(store.state.declInfoArray.length + 1);
-    store.dispatch('addDeclaration', declaration);
-    store.dispatch('changeForm', 2);
+    if (!this.isFillField()) {
+      return;
+    }
 
-    console.log(declaration);
+    store.dispatch('changeForm', TYPE_FORM_PREVIEW);
   }
+
+  public isFillField(): boolean {
+    if(this.isNotFillComponent(store.state.declInfo.getRegion(), 'Регион не выбран') ||
+       this.isNotFillComponent(store.state.declInfo.getGroup(), 'Группа не выбрана') ||
+       this.isNotFillComponent(store.state.declInfo.getType(), 'Тип не выбран') ||
+       this.isNotFillComponent(store.state.declInfo.getDescription(), 'Не заполнено описание')) {
+         return false;
+    }
+
+    return true;
+  }
+
+  public isNotFillComponent(value: string, alertStr: string) {
+    if (value.trim() === '') {
+      alert(alertStr);
+      return true;
+    }
+
+    return false;
+  }
+
 }
 </script>
 

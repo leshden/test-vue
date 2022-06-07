@@ -15,8 +15,8 @@ export default createStore({
     declInfoArray: new Array<DeclarationInfo>(),
     //upload
     regions: [],
-    groups: {},
-    types: {},
+    groups: [],
+    types: [],
     //enum
     typeForm: TYPE_FORM_ENTER
   },
@@ -27,10 +27,10 @@ export default createStore({
       state.regions = regions;
     },
     UPLOAD_GROUPS (state, groups: any) {
-      state.groups = groups;
+      state.groups = groups.content;
     },
-    UPLOAD_TYPES (state, types: object) {
-      state.types = types;
+    UPLOAD_TYPES (state, types: any) {
+      state.types = types.content;
     },
 
     //update
@@ -60,6 +60,10 @@ export default createStore({
     //enum
     CHANGE_FORM(state, type: number) {
       state.typeForm = type;
+    },
+    //clear
+    CLEAR_DECLARATION(state) {
+      state.declInfo.clear();
     }
   },
   actions: {
@@ -70,7 +74,7 @@ export default createStore({
     uploadGroups({commit}, groups: any) {
       commit('UPLOAD_GROUPS', groups);
     },
-    uploadTypes({commit}, types: object) {
+    uploadTypes({commit}, types: any) {
       commit('UPLOAD_TYPES', types);
     },
 
@@ -102,6 +106,11 @@ export default createStore({
     //enum
     changeForm({commit}, type: number) {
       commit('CHANGE_FORM', type);
+    },
+
+    //clear
+    clearDeclaration({commit}) {
+      commit('CLEAR_DECLARATION')
     }
 
   }
