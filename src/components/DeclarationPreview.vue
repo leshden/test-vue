@@ -18,6 +18,7 @@
 import {Vue} from 'vue-class-component';
 import store from '../store';
 import {TYPE_FORM_ENTER} from '../store/const';
+import DeclarationInfo from '../store/declaration-info'
 
 export default class DeclarationPreview extends Vue{
   public backToForm(): void {
@@ -27,10 +28,10 @@ export default class DeclarationPreview extends Vue{
   public declarateForm(): void {
     store.dispatch('updateStatus', 'Зарегистрирована');
 
-    let declaration = Object.create(store.state.declInfo);
+    let declaration = DeclarationInfo.Copy(store.state.declInfo);
     declaration.setId(store.state.declInfoArray.length + 1);
-    store.dispatch('addDeclaration', declaration);
     console.log(declaration);
+    store.dispatch('addDeclaration', declaration);
 
     store.dispatch('clearDeclaration');
     this.backToForm();

@@ -28,6 +28,10 @@ import DeclarationSelectors from './DeclarationSelectors.vue';
 export default class DeclarationEnter extends Vue {
   public textDescription = ''
 
+  mounted(): void  {
+    this.textDescription = store.state.declInfo.getDescription();
+  }
+
   public onSubmit(): void {
     store.dispatch('updateDescription', this.textDescription);
 

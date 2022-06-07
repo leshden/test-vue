@@ -16,6 +16,20 @@ export default class DeclarationInfo {
   protected status = ''
   protected position: MapPosition = {latitude: 0.0, longitude: 0.0}
   protected description = ''
+
+  static Copy(di: DeclarationInfo) : DeclarationInfo {
+    const newDeclarationInfo = new DeclarationInfo();
+    newDeclarationInfo.id = di.id;
+    newDeclarationInfo.region = di.region;
+    newDeclarationInfo.group = di.group;
+    newDeclarationInfo.type = di.type;
+    newDeclarationInfo.status = di.status;
+    newDeclarationInfo.position = di.position;
+    newDeclarationInfo.description = di.description;
+
+    return newDeclarationInfo;
+  }
+
   //get
   getId() {
     return this.id;
