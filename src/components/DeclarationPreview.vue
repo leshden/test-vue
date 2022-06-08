@@ -19,6 +19,7 @@ import {Vue} from 'vue-class-component';
 import store from '../store';
 import {TYPE_FORM_ENTER} from '../store/const';
 import DeclarationInfo from '../store/declaration-info'
+import {saveData} from '../storage-data/storage-data';
 
 export default class DeclarationPreview extends Vue{
   public backToForm(): void {
@@ -32,6 +33,7 @@ export default class DeclarationPreview extends Vue{
     declaration.setId(store.state.declInfoArray.length + 1);
     console.log(declaration);
     store.dispatch('addDeclaration', declaration);
+    saveData();
 
     store.dispatch('clearDeclaration');
     this.backToForm();

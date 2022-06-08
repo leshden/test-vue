@@ -18,7 +18,7 @@ import {getDataFromServer} from './get-requests/get-requests';
 })
 export default class App extends Vue {
   public title = 'Заявка';
-  mounted(): void  {
+  created(): void  {
     loadData();
     getDataFromServer();
  }

@@ -29,6 +29,7 @@
 import {Vue} from 'vue-class-component';
 import store from '../store';
 import {TYPE_FORM_ENTER} from '../store/const';
+import {saveData} from '../storage-data/storage-data';
 
 export default class DeclarationHandle extends Vue {
   public exitToMainForm() {
@@ -40,6 +41,7 @@ export default class DeclarationHandle extends Vue {
     for (let i = 0; i < length; ++i) {
       if (store.state.declInfoArray[i].getId() === id) {
         store.state.declInfoArray[i].setStatus(status);
+        saveData();
         break;
       }
     }
